@@ -6,103 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple DAPP "Set Your Mood"</title>
 
-    <style>
-        body {
-          text-align: center;
-          font-family: Arial, Helvetica, sans-serif;
-        }
-    
-        div {
-          width: 20%;
-          margin: 0 auto;
-          display: flex;
-          flex-direction: column;
-        }
-    
-        button {
-          width: 100%;
-          margin: 10px 0px 5px 0px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="index.css">
 
   </head>
       <body>
         <div>
-          <h3>Dapp to Deploy Your Mood on Blockchain. hahhaha</h3>
+          <h2>Dapp To Deploy Your Mood On Blockchain :)</h2>
           <label for="mood">Input Mood:</label> <br />
           <input type="text" id="mood" />
         
-          <button onclick="getMood()">Get Mood</button>
           <button onclick="setMood()">Set Mood</button>
-          <h2 id="showMood"></h2>
+          <button onclick="getMood()">Get Mood</button>
+          <h3 id="showMood"></h3>
         </div>
-      </body>
+
       <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js" type="application/javascript"></script>
-  <script>
-    const MoodContractAddress = "0x998D9B1be1e6501de3cD3d2C0EE7891c41600422";
-    const MoodContractABI = [ 
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_mood",
-				"type": "string"
-			}
-		],
-		"name": "setMood",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getMood",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}
-];
-
-    let MoodContract = undefined;
-    let signer = undefined;
-
-    async function getMood() {
-      if (MoodContract) {
-        const mood = await MoodContract.getMood();
-        document.getElementById("showMood").innerText = `Your Mood: ${mood}`;
-        console.log(mood);
-      } else {
-        console.error('MoodContract is not initialized');
-      }
-    }
-
-    async function setMood() {
-      if (MoodContract) {
-        const mood = document.getElementById("mood").value;
-        await MoodContract.setMood(mood);
-      } else {
-        console.error('MoodContract is not initialized');
-      }
-    }
-
-    const provider = new ethers.providers.Web3Provider(window.ethereum, "sepolia");
-    provider.send("eth_requestAccounts", []).then(() => {
-      provider.listAccounts().then((accounts) => {
-        signer = provider.getSigner(accounts[0]);
-        MoodContract = new ethers.Contract(
-          MoodContractAddress,
-          MoodContractABI,
-          signer
-        );
-      });
-    }).catch((error) => {
-      console.error('Failed to connect to Metamask:', error);
-    });
-  </script>
+      <script src="index.js"></script>
+    </body>
 </html>
